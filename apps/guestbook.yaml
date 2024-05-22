@@ -7,9 +7,10 @@ spec:
   generators:
   - list:
       elements:
+      - stage: dev
       - stage: test
-      - stage: uat
-      - stage: prod-useast
+      - stage: preview
+      - stage: prod-euwest
       - stage: prod-uswest
   template:
     metadata:
