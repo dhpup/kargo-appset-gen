@@ -25,7 +25,7 @@ spec:
       repoURL: https://github.com/blakepettersson/kargo.git
       branch: main
   - image:
-      repoURL: ghcr.io/blakepettersson/guestbook
+      repoURL: ghcr.io/dhpup/guestbook
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -46,7 +46,7 @@ spec:
       writeBranch: stage/dev
       kustomize:
         images:
-        - image: ghcr.io/blakepettersson/guestbook
+        - image: ghcr.io/dhpup/guestbook
           path: guestbook/stages/dev
     argoCDAppUpdates:
     - appName: guestbook-dev
@@ -72,7 +72,7 @@ spec:
       writeBranch: stage/test
       kustomize:
         images:
-        - image: ghcr.io/blakepettersson/guestbook
+        - image: ghcr.io/dhpup/guestbook
           path: guestbook/stages/test
     argoCDAppUpdates:
     - appName: guestbook-test
@@ -101,7 +101,7 @@ spec:
       writeBranch: stage/uat
       kustomize:
         images:
-        - image: ghcr.io/blakepettersson/guestbook
+        - image: ghcr.io/dhpup/guestbook
           path: guestbook/stages/preview
     argoCDAppUpdates:
     - appName: guestbook-preview
@@ -130,7 +130,7 @@ spec:
       writeBranch: stage/prod-euwest
       kustomize:
         images:
-        - image: ghcr.io/blakepettersson/guestbook
+        - image: ghcr.io/dhpup/guestbook
           path: guestbook/stages/prod-euwest
     argoCDAppUpdates:
     - appName: guestbook-prod-euwest
@@ -156,7 +156,7 @@ spec:
       writeBranch: stage/prod-uswest
       kustomize:
         images:
-        - image: ghcr.io/blakepettersson/guestbook
+        - image: ghcr.io/dhpup/guestbook
           path: guestbook/stages/prod-uswest
     argoCDAppUpdates:
     - appName: guestbook-prod-uswest
