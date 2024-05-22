@@ -22,10 +22,10 @@ spec:
   shard: kargo-agent
   subscriptions:
   - git:
-      repoURL: https://github.com/dhpup/kargo.git
+      repoURL: https://github.com/blakepettersson/kargo.git
       branch: main
   - image:
-      repoURL: ghcr.io/dhpup/guestbook
+      repoURL: ghcr.io/blakepettersson/guestbook
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -42,11 +42,11 @@ spec:
     warehouse: guestbook
   promotionMechanisms:
     gitRepoUpdates:
-    - repoURL: https://github.com/dhpup/kargo.git
+    - repoURL: https://github.com/blakepettersson/kargo.git
       writeBranch: stage/dev
       kustomize:
         images:
-        - image: ghcr.io/dhpup/guestbook
+        - image: ghcr.io/blakepettersson/guestbook
           path: guestbook/stages/dev
     argoCDAppUpdates:
     - appName: guestbook-dev
@@ -68,11 +68,11 @@ spec:
     - name: dev
   promotionMechanisms:
     gitRepoUpdates:
-    - repoURL: https://github.com/dhpup/kargo.git
+    - repoURL: https://github.com/blakepettersson/kargo.git
       writeBranch: stage/test
       kustomize:
         images:
-        - image: ghcr.io/dhpup/guestbook
+        - image: ghcr.io/blakepettersson/guestbook
           path: guestbook/stages/test
     argoCDAppUpdates:
     - appName: guestbook-test
@@ -97,11 +97,11 @@ spec:
     - name: test
   promotionMechanisms:
     gitRepoUpdates:
-    - repoURL: https://github.com/dhpup/kargo.git
+    - repoURL: https://github.com/blakepettersson/kargo.git
       writeBranch: stage/uat
       kustomize:
         images:
-        - image: ghcr.io/dhpup/guestbook
+        - image: ghcr.io/blakepettersson/guestbook
           path: guestbook/stages/preview
     argoCDAppUpdates:
     - appName: guestbook-preview
@@ -126,11 +126,11 @@ spec:
     - name: preview
   promotionMechanisms:
     gitRepoUpdates:
-    - repoURL: https://github.com/dhpup/kargo.git
+    - repoURL: https://github.com/blakepettersson/kargo.git
       writeBranch: stage/prod-euwest
       kustomize:
         images:
-        - image: ghcr.io/dhpup/guestbook
+        - image: ghcr.io/blakepettersson/guestbook
           path: guestbook/stages/prod-euwest
     argoCDAppUpdates:
     - appName: guestbook-prod-euwest
@@ -152,11 +152,11 @@ spec:
     - name: preview
   promotionMechanisms:
     gitRepoUpdates:
-    - repoURL: https://github.com/dhpup/kargo.git
+    - repoURL: https://github.com/blakepettersson/kargo.git
       writeBranch: stage/prod-uswest
       kustomize:
         images:
-        - image: ghcr.io/dhpup/guestbook
+        - image: ghcr.io/blakepettersson/guestbook
           path: guestbook/stages/prod-uswest
     argoCDAppUpdates:
     - appName: guestbook-prod-uswest
