@@ -18,13 +18,13 @@ spec:
       annotations:
         kargo.akuity.io/authorized-stage: guestbook:{{stage}}
     spec:
-      project: default
+      project: kargo-demo
       source:
         repoURL: https://github.com/blakepettersson/kargoring.git
         targetRevision: stage/{{stage}}
         path: guestbook/stages/{{stage}}
       destination:
-        name: blake
+        name: eks-addon-test
         namespace: guestbook-{{stage}}
       syncPolicy:
         syncOptions:
