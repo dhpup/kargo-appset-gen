@@ -16,8 +16,8 @@ metadata:
   namespace: guestbook
   annotations:
     argocd.argoproj.io/sync-wave: "2"
-  labels:
-    kargo.akuity.io/shard: kargo1
+#  labels:
+#    kargo.akuity.io/shard: kargo1
 spec:
   shard: kargo1
   subscriptions:
@@ -89,8 +89,8 @@ metadata:
   annotations:
     kargo.akuity.io/color: blue
     argocd.argoproj.io/sync-wave: "2"
-  labels:
-    kargo.akuity.io/shard: kargo1
+#  labels:
+#    kargo.akuity.io/shard: kargo1
 spec:
   subscriptions:
     upstreamStages:
