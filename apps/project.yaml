@@ -13,3 +13,11 @@ spec:
   destinations:
     - namespace: "*"
       server: "*"
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+      namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  orphanedResources:
+    warn: false
