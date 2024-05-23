@@ -8,7 +8,7 @@ spec:
     repoURL: https://github.com/blakepettersson/kargoring.git
     path: kargo
   destination:
-    name: kargo-blake
+    name: kargo1
     #server: https://f77el9953au135eb-cplane.kargosvcs.akuity.cloud
   syncPolicy:
     syncOptions:
