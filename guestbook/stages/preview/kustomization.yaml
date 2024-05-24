@@ -6,4 +6,4 @@ resources:
 
 images:
   - name: guestbook
-  - newTag: this-is-fake-and-now
+    newTag: this-is-fake-and-not-supposed-to-work
