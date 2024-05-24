@@ -97,7 +97,7 @@ spec:
   promotionMechanisms:
     gitRepoUpdates:
     - repoURL: https://github.com/blakepettersson/kargoring.git
-      writeBranch: stage/uat
+      writeBranch: stage/preview
       kustomize:
         images:
         - image: ghcr.io/dhpup/guestbook
