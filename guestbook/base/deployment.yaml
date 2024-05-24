@@ -4,7 +4,7 @@ metadata:
   name: guestbook
 spec:
   replicas: 1
-  progressDeadlineSeconds: 60
+  progressDeadlineSeconds: 120
   revisionHistoryLimit: 3
   selector:
     matchLabels:
@@ -19,4 +19,3 @@ spec:
         name: guestbook
         ports:
         - containerPort: 80
-
