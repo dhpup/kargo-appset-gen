@@ -3,6 +3,9 @@ kind: Kustomization
 
 resources:
 - ../../base
+
 images:
+- newTag: this-is-fake-and-now
 - name: ghcr.io/dhpup/guestbook
   newTag: 0.1.40
+- name: guestbook
