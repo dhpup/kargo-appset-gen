@@ -19,3 +19,4 @@ spec:
         name: guestbook
         ports:
         - containerPort: 80
+
