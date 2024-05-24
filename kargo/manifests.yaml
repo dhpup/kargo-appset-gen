@@ -19,7 +19,7 @@ metadata:
 #  labels:
 #    kargo.akuity.io/shard: kargo1
 spec:
-  shard: kargo1
+  #shard: kargo1
   subscriptions:
   - git:
       repoURL: https://github.com/blakepettersson/kargoring.git
