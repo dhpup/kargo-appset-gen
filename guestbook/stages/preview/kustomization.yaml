@@ -7,5 +7,3 @@ resources:
 images:
 - name: ghcr.io/dhpup/guestbook
   newTag: 0.1.40
-- name: guestbook
-  newTag: this-is-fake-and-not-supposed-to-work
