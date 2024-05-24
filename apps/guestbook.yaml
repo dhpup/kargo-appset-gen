@@ -24,7 +24,7 @@ spec:
         targetRevision: stage/{{stage}}
         path: guestbook/stages/{{stage}}
       destination:
-        name: eks-addon-test
+        name: blake
         namespace: guestbook-{{stage}}
       syncPolicy:
         syncOptions:
