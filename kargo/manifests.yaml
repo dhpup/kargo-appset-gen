@@ -6,7 +6,15 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec: 
   promotionPolicies:
+  - stage: dev
+    autoPromotionEnabled: true
   - stage: test
+    autoPromotionEnabled: true
+  - stage: preview
+    autoPromotionEnabled: true
+  - stage: prod-uswest
+    autoPromotionEnabled: true
+  - stage: prod-euwest
     autoPromotionEnabled: true
 ---
 apiVersion: kargo.akuity.io/v1alpha1
@@ -16,10 +24,7 @@ metadata:
   namespace: guestbook
   annotations:
     argocd.argoproj.io/sync-wave: "2"
-#  labels:
-#    kargo.akuity.io/shard: kargo1
 spec:
-  #shard: kargo1
   subscriptions:
   - git:
       repoURL: https://github.com/blakepettersson/kargoring.git
@@ -35,8 +40,6 @@ metadata:
   annotations:
     kargo.akuity.io/color: purple
     argocd.argoproj.io/sync-wave: "2"
-#  labels:
-#    kargo.akuity.io/shard: kargo1
 spec:
   subscriptions:
     warehouse: guestbook
@@ -60,8 +63,6 @@ metadata:
   annotations:
     kargo.akuity.io/color: blue
     argocd.argoproj.io/sync-wave: "2"
- # labels:
- #   kargo.akuity.io/shard: kargo1
 spec:
   subscriptions:
     upstreamStages:
@@ -89,8 +90,6 @@ metadata:
   annotations:
     kargo.akuity.io/color: blue
     argocd.argoproj.io/sync-wave: "2"
-#  labels:
-#    kargo.akuity.io/shard: kargo1
 spec:
   subscriptions:
     upstreamStages:
@@ -118,8 +117,6 @@ metadata:
   annotations:
     kargo.akuity.io/color: cyan
     argocd.argoproj.io/sync-wave: "2"
-#  labels:
-#    kargo.akuity.io/shard: kargo1
 spec:
   subscriptions:
     upstreamStages:
@@ -144,8 +141,6 @@ metadata:
   annotations:
     kargo.akuity.io/color: pink
     argocd.argoproj.io/sync-wave: "2"
-#  labels:
-#    kargo.akuity.io/shard: kargo1
 spec:
   subscriptions:
     upstreamStages:
