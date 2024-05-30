@@ -11,5 +11,6 @@ spec:
     name: kargo1
     #server: https://f77el9953au135eb-cplane.kargosvcs.akuity.cloud
   syncPolicy:
+    automated: {}
     syncOptions:
     - CreateNamespace=true
