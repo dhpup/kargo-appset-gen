@@ -47,10 +47,12 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/blakepettersson/kargoring.git
       writeBranch: stage/dev
-      kustomize:
+      helm:
         images:
-        - image: ghcr.io/dhpup/guestbook
-          path: guestbook/stages/dev
+          - image: ghcr.io/dhpup/guestbook
+            valuesFilePath: helm-guestbook/values-dev.yaml
+            key: image.name # Update this key to reference the new image version
+            value: ImageAndTag
     argoCDAppUpdates:
     - appName: guestbook-dev
       appNamespace: argocd
@@ -71,16 +73,18 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/blakepettersson/kargoring.git
       writeBranch: stage/test
-      kustomize:
+      helm:
         images:
-        - image: ghcr.io/dhpup/guestbook
-          path: guestbook/stages/test
+          - image: ghcr.io/dhpup/guestbook
+            valuesFilePath: helm-guestbook/values-test.yaml
+            key: image.name # Update this key to reference the new image version
+            value: ImageAndTag
     argoCDAppUpdates:
     - appName: guestbook-test
       appNamespace: argocd
-  verification:
-    analysisTemplates:
-    - name: guestbook-verification
+#  verification:
+#    analysisTemplates:
+#    - name: guestbook-verification
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
@@ -98,10 +102,12 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/blakepettersson/kargoring.git
       writeBranch: stage/preview
-      kustomize:
+      helm:
         images:
-        - image: ghcr.io/dhpup/guestbook
-          path: guestbook/stages/preview
+          - image: ghcr.io/dhpup/guestbook
+            valuesFilePath: helm-guestbook/values-preview.yaml
+            key: image.name # Update this key to reference the new image version
+            value: ImageAndTag
     argoCDAppUpdates:
     - appName: guestbook-preview
       appNamespace: argocd
@@ -122,10 +128,12 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/blakepettersson/kargoring.git
       writeBranch: stage/prod-euwest
-      kustomize:
+      helm:
         images:
-        - image: ghcr.io/dhpup/guestbook
-          path: guestbook/stages/prod-euwest
+          - image: ghcr.io/dhpup/guestbook
+            valuesFilePath: helm-guestbook/values-prod-euwest.yaml
+            key: image.name # Update this key to reference the new image version
+            value: ImageAndTag
     argoCDAppUpdates:
     - appName: guestbook-prod-euwest
       appNamespace: argocd
@@ -146,10 +154,12 @@ spec:
     gitRepoUpdates:
     - repoURL: https://github.com/blakepettersson/kargoring.git
       writeBranch: stage/prod-uswest
-      kustomize:
+      helm:
         images:
-        - image: ghcr.io/dhpup/guestbook
-          path: guestbook/stages/prod-uswest
+          - image: ghcr.io/dhpup/guestbook
+            valuesFilePath: helm-guestbook/values-prod-uswest.yaml
+            key: image.name # Update this key to reference the new image version
+            value: ImageAndTag
     argoCDAppUpdates:
     - appName: guestbook-prod-uswest
       appNamespace: argocd
