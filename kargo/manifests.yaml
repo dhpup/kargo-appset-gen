@@ -82,9 +82,9 @@ spec:
     argoCDAppUpdates:
     - appName: guestbook-test
       appNamespace: argocd
-  verification:
-    analysisTemplates:
-    - name: guestbook-verification
+#  verification:
+#    analysisTemplates:
+#    - name: guestbook-verification
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
