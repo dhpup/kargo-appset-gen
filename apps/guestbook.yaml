@@ -22,10 +22,16 @@ spec:
       source:
         repoURL: https://github.com/blakepettersson/kargoring.git
         targetRevision: stage/{{stage}}
-        path: guestbook/stages/{{stage}}
+        helm:
+          valueFiles:
+            - values-{{stage}}.yaml
+          releaseName: guestbook
+        path: helm-guestbook
+        #path: guestbook/stages/{{stage}}
       destination:
         name: blake
         namespace: guestbook-{{stage}}
       syncPolicy:
+        automated: {}
         syncOptions:
         - CreateNamespace=true
