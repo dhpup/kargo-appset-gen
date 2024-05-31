@@ -20,7 +20,7 @@ spec:
     spec:
       project: kargo-demo
       source:
-        repoURL: https://github.com/blakepettersson/kargoring.git
+        repoURL: https://github.com/blakepettersson/guestbook.git
         targetRevision: stage/{{stage}}
         helm:
           valueFiles:
