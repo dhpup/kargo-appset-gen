@@ -1,3 +1,4 @@
+# This manages the Kargo manifests (see kargo directory)
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -9,7 +10,6 @@ spec:
     path: kargo
   destination:
     name: kargo1
-    #server: https://f77el9953au135eb-cplane.kargosvcs.akuity.cloud
   syncPolicy:
     automated: {}
     syncOptions:
