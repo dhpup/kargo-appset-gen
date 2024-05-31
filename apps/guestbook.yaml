@@ -32,6 +32,5 @@ spec:
         name: blake
         namespace: guestbook-{{stage}}
       syncPolicy:
-        automated: {}
         syncOptions:
         - CreateNamespace=true
