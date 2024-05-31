@@ -50,7 +50,7 @@ spec:
       helm:
         images:
           - image: ghcr.io/dhpup/guestbook
-            valuesFilePath: helm-guestbook/values-dev.yaml
+            valuesFilePath: values-dev.yaml
             key: image.name # Update this key to reference the new image version
             value: ImageAndTag
     argoCDAppUpdates:
@@ -76,7 +76,7 @@ spec:
       helm:
         images:
           - image: ghcr.io/dhpup/guestbook
-            valuesFilePath: helm-guestbook/values-test.yaml
+            valuesFilePath: values-test.yaml
             key: image.name # Update this key to reference the new image version
             value: ImageAndTag
     argoCDAppUpdates:
@@ -105,7 +105,7 @@ spec:
       helm:
         images:
           - image: ghcr.io/dhpup/guestbook
-            valuesFilePath: helm-guestbook/values-preview.yaml
+            valuesFilePath: values-preview.yaml
             key: image.name # Update this key to reference the new image version
             value: ImageAndTag
     argoCDAppUpdates:
@@ -131,7 +131,7 @@ spec:
       helm:
         images:
           - image: ghcr.io/dhpup/guestbook
-            valuesFilePath: helm-guestbook/values-prod-euwest.yaml
+            valuesFilePath: values-prod-euwest.yaml
             key: image.name # Update this key to reference the new image version
             value: ImageAndTag
     argoCDAppUpdates:
@@ -157,7 +157,7 @@ spec:
       helm:
         images:
           - image: ghcr.io/dhpup/guestbook
-            valuesFilePath: helm-guestbook/values-prod-uswest.yaml
+            valuesFilePath: values-prod-uswest.yaml
             key: image.name # Update this key to reference the new image version
             value: ImageAndTag
     argoCDAppUpdates:
