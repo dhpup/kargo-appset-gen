@@ -6,8 +6,124 @@ metadata:
 spec:
   project: kargo-demo
   source:
-    repoURL: https://github.com/blakepettersson/kargoring.git
-    path: kargo
+    repoURL: https://github.com/blakepettersson/kargo-boilerplate.git
+    path: .
+    helm:
+      valuesObject:
+        warehouse:
+          subscriptions:
+            - git:
+                repoURL: https://github.com/blakepettersson/guestbook.git
+                branch: main
+            - image:
+                repoURL: ghcr.io/dhpup/guestbook
+        project:
+          promotionPolicies:
+            - stage: dev
+              autoPromotionEnabled: true
+            - stage: test
+              autoPromotionEnabled: true
+            - stage: preview
+              autoPromotionEnabled: true
+            - stage: prod-uswest
+              autoPromotionEnabled: true
+            - stage: prod-euwest
+              autoPromotionEnabled: true
+        stages:
+          - name: dev
+            annotations:
+              kargo.akuity.io/color: purple
+            subscriptions:
+              warehouse: guestbook
+            promotionMechanisms:
+              gitRepoUpdates:
+                - repoURL: https://github.com/blakepettersson/guestbook.git
+                  writeBranch: stage/dev
+                  helm:
+                    images:
+                      - image: ghcr.io/dhpup/guestbook
+                        valuesFilePath: values-dev.yaml
+                        key: image.name # Update this key to reference the new image version
+                        value: ImageAndTag
+              argoCDAppUpdates:
+                - appName: guestbook-dev
+                  appNamespace: argocd
+          - name: test
+            annotations:
+              kargo.akuity.io/color: purple
+            subscriptions:
+              upstreamStages:
+                - name: dev
+            promotionMechanisms:
+              gitRepoUpdates:
+                - repoURL: https://github.com/blakepettersson/guestbook.git
+                  writeBranch: stage/test
+                  helm:
+                    images:
+                      - image: ghcr.io/dhpup/guestbook
+                        valuesFilePath: values-test.yaml
+                        key: image.name # Update this key to reference the new image version
+                        value: ImageAndTag
+              argoCDAppUpdates:
+                - appName: guestbook-test
+                  appNamespace: argocd
+          - name: preview
+            annotations:
+              kargo.akuity.io/color: blue
+            subscriptions:
+              upstreamStages:
+                - name: test
+            promotionMechanisms:
+              gitRepoUpdates:
+                - repoURL: https://github.com/blakepettersson/guestbook.git
+                  writeBranch: stage/preview
+                  helm:
+                    images:
+                      - image: ghcr.io/dhpup/guestbook
+                        valuesFilePath: values-preview.yaml
+                        key: image.name # Update this key to reference the new image version
+                        value: ImageAndTag
+              argoCDAppUpdates:
+                - appName: guestbook-preview
+                  appNamespace: argocd
+          - name: prod-euwest
+            annotations:
+              kargo.akuity.io/color: cyan
+            subscriptions:
+              upstreamStages:
+                - name: preview
+            promotionMechanisms:
+              gitRepoUpdates:
+                - repoURL: https://github.com/blakepettersson/guestbook.git
+                  writeBranch: stage/prod-euwest
+                  helm:
+                    images:
+                      - image: ghcr.io/dhpup/guestbook
+                        valuesFilePath: values-prod-euwest.yaml
+                        key: image.name # Update this key to reference the new image version
+                        value: ImageAndTag
+              argoCDAppUpdates:
+                - appName: guestbook-prod-euwest
+                  appNamespace: argocd
+          - name: prod-uswest
+            annotations:
+              kargo.akuity.io/color: pink
+            subscriptions:
+              upstreamStages:
+                - name: preview
+            promotionMechanisms:
+              gitRepoUpdates:
+                - repoURL: https://github.com/blakepettersson/guestbook.git
+                  writeBranch: stage/prod-uswest
+                  helm:
+                    images:
+                      - image: ghcr.io/dhpup/guestbook
+                        valuesFilePath: values-prod-uswest.yaml
+                        key: image.name # Update this key to reference the new image version
+                        value: ImageAndTag
+              argoCDAppUpdates:
+                - appName: guestbook-prod-uswest
+                  appNamespace: argocd
   destination:
     name: kargo1
   syncPolicy:

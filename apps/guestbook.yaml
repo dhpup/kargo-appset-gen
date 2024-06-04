@@ -27,10 +27,10 @@ spec:
             - values-{{stage}}.yaml
           releaseName: guestbook
         path: .
-        #path: guestbook/stages/{{stage}}
       destination:
         name: blake
         namespace: guestbook-{{stage}}
+      # Autosync NOT enabled for guestbook stages, since the syncing is managed via Kargo.
       syncPolicy:
         syncOptions:
         - CreateNamespace=true
