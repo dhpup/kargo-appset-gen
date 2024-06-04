@@ -9,6 +9,7 @@ spec:
     repoURL: https://github.com/blakepettersson/kargo-boilerplate.git
     path: .
     helm:
+      nameOverride: guestbook
       valuesObject:
         warehouse:
           subscriptions:
