@@ -28,7 +28,7 @@ spec:
         repoURL: https://github.com/blakepettersson/guestbook.git
         targetRevision: 'stage/{{.name}}'
         helm:
-          values:
+          valuesObject:
             dnsZone: '{{ index .metadata.annotations "dns-zone" }}'
           valueFiles:
             - 'values-{{.name}}.yaml'
