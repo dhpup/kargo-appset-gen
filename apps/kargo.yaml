@@ -12,6 +12,10 @@ spec:
             repoUrl: https://github.com/blakepettersson/guestbook.git
             branch: main
             image: ghcr.io/dhpup/guestbook
+          - name: foobar
+            repoUrl: https://github.com/blakepettersson/guestbook.git
+            branch: main
+            image: ghcr.io/dhpup/guestbook
   template:
     metadata:
       name: 'kargo-{{.name}}'

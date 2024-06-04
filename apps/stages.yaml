@@ -12,6 +12,9 @@ spec:
           - list:
               elements:
                 - appName: guestbook
+                  repoURL: https://github.com/blakepettersson/guestbook.git
+                - appName: foobar
+                  repoURL: https://github.com/blakepettersson/guestbook.git
           # cluster generator, 'child' #2
           - clusters:
               selector:
@@ -25,7 +28,7 @@ spec:
     spec:
       project: kargo-demo
       source:
-        repoURL: https://github.com/blakepettersson/guestbook.git
+        repoURL: '{{.repoURL}}'
         targetRevision: 'stage/{{.name}}'
         helm:
           valuesObject:
