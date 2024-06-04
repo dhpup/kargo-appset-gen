@@ -4,33 +4,40 @@ metadata:
   name: guestbook
   namespace: argocd
 spec:
+  goTemplate: true
   generators:
-  - list:
-      elements:
-      - stage: dev
-      - stage: test
-      - stage: preview
-      - stage: prod-euwest
-      - stage: prod-uswest
+    - matrix:
+        generators:
+          # list generator, 'child' #1
+          - list:
+              elements:
+                - appName: guestbook
+          # cluster generator, 'child' #2
+          - clusters:
+              selector:
+                matchLabels:
+                  kargo-demo: 'true'
   template:
     metadata:
-      name: guestbook-{{stage}}
+      name: '{{.appName}}-{{.name}}'
       annotations:
-        kargo.akuity.io/authorized-stage: guestbook:{{stage}}
+        kargo.akuity.io/authorized-stage: '{{.appName}}:{{.name}}'
     spec:
       project: kargo-demo
       source:
         repoURL: https://github.com/blakepettersson/guestbook.git
-        targetRevision: stage/{{stage}}
+        targetRevision: 'stage/{{.name}}'
         helm:
+          values:
+            dnsZone: '{{ index .metadata.annotations "dns-zone" }}'
           valueFiles:
-            - values-{{stage}}.yaml
-          releaseName: guestbook
+            - 'values-{{.name}}.yaml'
+          releaseName: '{{.appName}}'
         path: .
       destination:
-        name: blake
-        namespace: guestbook-{{stage}}
-      # Autosync NOT enabled for guestbook stages, since the syncing is managed via Kargo.
+        name: '{{.name}}'
+        namespace: '{{.appName}}'
+      # Autosync NOT enabled for application stages, since the syncing is managed via Kargo.
       syncPolicy:
         syncOptions:
-        - CreateNamespace=true
+          - CreateNamespace=true
