@@ -9,12 +9,8 @@ spec:
     - list:
         elements:
           - name: guestbook
-            repoUrl: https://github.com/blakepettersson/guestbook.git
-            branch: main
-            image: ghcr.io/dhpup/guestbook
-          - name: foobar
-            repoUrl: https://github.com/blakepettersson/guestbook.git
-            branch: main
+            repoUrl: oci://registry-1.docker.io/blaaake
+            chart: helm-guestbook
             image: ghcr.io/dhpup/guestbook
   template:
     metadata:
@@ -29,23 +25,12 @@ spec:
             nameOverride: '{{.name}}'
             warehouse:
               subscriptions:
-                - git:
+                - chart:
                     repoURL: '{{.repoUrl}}'
-                    branch: '{{.branch}}'
+                    semverConstraint: '*'
                 - image:
                     repoURL: '{{.image}}'
-            project:
-              promotionPolicies:
-                - stage: dev
-                  autoPromotionEnabled: true
-                - stage: test
-                  autoPromotionEnabled: true
-                - stage: preview
-                  autoPromotionEnabled: true
-                - stage: prod-uswest
-                  autoPromotionEnabled: true
-                - stage: prod-euwest
-                  autoPromotionEnabled: true
+                    semverConstraint: '*'
             stages:
               - name: dev
                 annotations:
@@ -53,94 +38,17 @@ spec:
                 subscriptions:
                   warehouse: '{{.name}}'
                 promotionMechanisms:
-                  gitRepoUpdates:
-                    - repoURL: '{{.repoUrl}}'
-                      writeBranch: stage/dev
-                      helm:
-                        images:
-                          - image: '{{.image}}'
-                            valuesFilePath: values-dev.yaml
-                            key: image.name # Update this key to reference the new image version
-                            value: ImageAndTag
                   argoCDAppUpdates:
                     - appName: '{{.name}}-dev'
-                      appNamespace: argocd
-              - name: test
-                annotations:
-                  kargo.akuity.io/color: purple
-                subscriptions:
-                  upstreamStages:
-                    - name: dev
-                promotionMechanisms:
-                  gitRepoUpdates:
-                    - repoURL: '{{.repoUrl}}'
-                      writeBranch: stage/test
-                      helm:
-                        images:
-                          - image: '{{.image}}'
-                            valuesFilePath: values-test.yaml
-                            key: image.name # Update this key to reference the new image version
-                            value: ImageAndTag
-                  argoCDAppUpdates:
-                    - appName: '{{.name}}-test'
-                      appNamespace: argocd
-              - name: preview
-                annotations:
-                  kargo.akuity.io/color: blue
-                subscriptions:
-                  upstreamStages:
-                    - name: test
-                promotionMechanisms:
-                  gitRepoUpdates:
-                    - repoURL: '{{.repoUrl}}'
-                      writeBranch: stage/preview
-                      helm:
-                        images:
-                          - image: '{{.image}}'
-                            valuesFilePath: values-preview.yaml
-                            key: image.name # Update this key to reference the new image version
-                            value: ImageAndTag
-                  argoCDAppUpdates:
-                    - appName: '{{.name}}-preview'
-                      appNamespace: argocd
-              - name: prod-euwest
-                annotations:
-                  kargo.akuity.io/color: cyan
-                subscriptions:
-                  upstreamStages:
-                    - name: preview
-                promotionMechanisms:
-                  gitRepoUpdates:
-                    - repoURL: '{{.repoUrl}}'
-                      writeBranch: stage/prod-euwest
-                      helm:
-                        images:
-                          - image: '{{.image}}'
-                            valuesFilePath: values-prod-euwest.yaml
-                            key: image.name # Update this key to reference the new image version
-                            value: ImageAndTag
-                  argoCDAppUpdates:
-                    - appName: '{{.name}}-prod-euwest'
-                      appNamespace: argocd
-              - name: prod-uswest
-                annotations:
-                  kargo.akuity.io/color: pink
-                subscriptions:
-                  upstreamStages:
-                    - name: preview
-                promotionMechanisms:
-                  gitRepoUpdates:
-                    - repoURL: '{{.repoUrl}}'
-                      writeBranch: stage/prod-uswest
-                      helm:
-                        images:
-                          - image: '{{.image}}'
-                            valuesFilePath: values-prod-uswest.yaml
-                            key: image.name # Update this key to reference the new image version
-                            value: ImageAndTag
-                  argoCDAppUpdates:
-                    - appName: '{{.name}}-prod-uswest'
-                      appNamespace: argocd
+                      sourceUpdates:
+                        - repoURL: '{{.repoUrl}}'
+                          chart: '{{.chart}}'
+                          helm:
+                            images:
+                              - image: '{{.image}}'
+                                key: image.tag
+                                value: Tag # Update Application to reference the new image version
+                          updateTargetRevision: true # Update Application to reference the new chart version
       destination:
         name: kargo1
       syncPolicy:

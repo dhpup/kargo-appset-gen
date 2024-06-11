@@ -4,6 +4,10 @@ metadata:
   name: stages
   namespace: argocd
 spec:
+  ignoreApplicationDifferences:
+    - jqPathExpressions:
+        - .spec.source.targetRevision
+        - .spec.source.helm.parameters
   goTemplate: true
   generators:
     - matrix:
@@ -11,32 +15,37 @@ spec:
           # list generator, 'child' #1
           - list:
               elements:
-                - appName: guestbook
-                  repoURL: https://github.com/blakepettersson/guestbook.git
-                - appName: foobar
-                  repoURL: https://github.com/blakepettersson/guestbook.git
+                - appName: oci-guestbook-dev
+                  registry: oci://registry-1.docker.io/blaaake
+                  chart: helm-guestbook
           # cluster generator, 'child' #2
           - clusters:
               selector:
-                matchLabels:
-                  kargo-demo: 'true'
+                matchExpressions:
+                  - key: 'akuity.io/argo-cd-cluster-name'
+                    operator: NotIn
+                    values:
+                    - in-cluster
+                    - akuity-kargo-poc
   template:
     metadata:
-      name: '{{.appName}}-{{.name}}'
+      name: '{{.appName}}-{{ index .metadata.annotations "stage" }}'
       annotations:
-        kargo.akuity.io/authorized-stage: '{{.appName}}:{{.name}}'
+        kargo.akuity.io/authorized-stage: '{{.appName}}:{{ index .metadata.annotations "stage" }}'
     spec:
       project: kargo-demo
       source:
-        repoURL: '{{.repoURL}}'
-        targetRevision: 'stage/{{.name}}'
+        repoURL: '{{.registry}}'
+        chart: '{{.chart}}'
+        # Kargo will update targetRevision to move new charts into each stage
+        targetRevision: 0.1.0 # Initial value needs to exist in remote repo, subsequent revisions will be handled by Kargo.
         helm:
-          valuesObject:
-            dnsZone: '{{ index .metadata.annotations "dns-zone" }}'
           valueFiles:
-            - 'values-{{.name}}.yaml'
-          releaseName: '{{.appName}}'
-        path: .
+            - 'values-{{ index .metadata.annotations "stage" }}.yaml' # This is a values file that is _baked into_ the OCI Helm chart.
+          parameters:
+            # Kargo will update this value to move new images into each stage
+            - name: image.tag
+              value: placeholder
       destination:
         name: '{{.name}}'
         namespace: '{{.appName}}'
