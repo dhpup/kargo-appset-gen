@@ -8,7 +8,7 @@ spec:
   generators:
     - list:
         elements:
-          - name: guestbook
+          - name: oci-guestbook
             repoUrl: oci://registry-1.docker.io/blaaake
             chart: helm-guestbook
             image: ghcr.io/dhpup/guestbook
