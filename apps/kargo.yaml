@@ -16,9 +16,9 @@ spec:
     metadata:
       name: 'kargo-{{.name}}'
     spec:
-      project: kargo-demo
+      project: kargo-gen-demo
       source:
-        repoURL: https://github.com/blakepettersson/kargo-boilerplate.git
+        repoURL: https://github.com/dhpup/kargo-project-gen.git
         path: .
         helm:
           valuesObject:

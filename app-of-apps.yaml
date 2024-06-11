@@ -3,11 +3,11 @@ kind: Application
 metadata:
   name: apps
 spec:
-  project: default
+  project: kargo-gen-demo
   syncPolicy:
     automated: {}
   source:
-    repoURL: https://github.com/blakepettersson/kargoring.git
+    repoURL: https://github.com/dhpup/kargo-appset-gen.git
     targetRevision: main
     path: apps
     directory:
