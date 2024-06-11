@@ -15,7 +15,7 @@ spec:
           # list generator, 'child' #1
           - list:
               elements:
-                - appName: oci-guestbook-dev
+                - appName: oci-guestbook
                   registry: oci://registry-1.docker.io/blaaake
                   chart: helm-guestbook
           # cluster generator, 'child' #2
