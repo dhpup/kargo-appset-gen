@@ -29,7 +29,7 @@ spec:
       annotations:
         kargo.akuity.io/authorized-stage: '{{.appName}}:{{ index .metadata.annotations "stage" }}'
     spec:
-      project: kargo-demo
+      project: kargo-gen-demo
       source:
         repoURL: '{{.registry}}'
         chart: '{{.chart}}'
