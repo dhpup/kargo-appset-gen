@@ -21,12 +21,8 @@ spec:
           # cluster generator, 'child' #2
           - clusters:
               selector:
-                matchExpressions:
-                  - key: 'akuity.io/argo-cd-cluster-name'
-                    operator: NotIn
-                    values:
-                    - in-cluster
-                    - akuity-kargo-poc
+                matchLabels:
+                  kargo-demo: 'true'
   template:
     metadata:
       name: '{{.appName}}-{{ index .metadata.annotations "stage" }}'
